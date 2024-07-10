@@ -27,22 +27,22 @@ public class MenuManeger : MonoBehaviour
         Time.timeScale = 1;
         victoryMenu.SetActive(false);
     }
-    /*public IEnumerator Delay()
+    IEnumerator Delay()
     {
         yield return new WaitForSeconds(3);
-    }*/
-    /*public void VictoryScreen()
+    }
+    public void VictoryScreen()
     {
-        //Delay();
+        StartCoroutine(Delay());
         Time.timeScale = 0;
         victoryMenu.SetActive(true);
     }
     public void DefeatScreen()
     {
-        //Delay();
+        StartCoroutine(Delay());
         Time.timeScale = 0;
         defeatMenu.SetActive(true);
-    }*/
+    }
 
     public void MainMenu()
     {
@@ -54,5 +54,6 @@ public class MenuManeger : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(1);
-    }    
+    }
+    
 }

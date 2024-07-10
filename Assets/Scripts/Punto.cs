@@ -12,6 +12,7 @@ public class Punto : MonoBehaviour
         if(other.gameObject.tag == "Balon/Triggerer")
         {
             //other.GetComponentInParent<BalonRb>().RegresarPunto();
+            Destroy(other.transform.parent.gameObject);
             Particula.SetActive(true);
             ControladorGame.PuntoAcierto();
             Debug.Log("anotacion1 Desde Punto");

@@ -35,6 +35,8 @@ public class ManagerPointsGame : MonoBehaviour
     public GameObject _victory;
     public GameObject _defeat;
 
+    [Header("FeedBack")]
+    public GameObject ParentFeed;
     private void Awake()
     {
         menuManager = menuObject.GetComponent<MenuManeger>();
@@ -49,7 +51,8 @@ public class ManagerPointsGame : MonoBehaviour
     
     public void PuntoAcierto()
     {
-
+        ParentFeed.SetActive(true);
+        StartCoroutine(EmpezarFeedback());
         Sonidos.PlayOneShot(GanadoPunto);
 
         Colorrender = Puntos[intentos].GetComponent<MeshRenderer>().material;
@@ -84,6 +87,11 @@ public class ManagerPointsGame : MonoBehaviour
         {
             MaxIntentos();
         }
+    }
+    IEnumerator EmpezarFeedback(){
+
+        yield return new WaitForSeconds(3);
+ParentFeed.SetActive(false);
     }
     public void PuntoErrado()
     {
@@ -124,13 +132,11 @@ public class ManagerPointsGame : MonoBehaviour
     public IEnumerator VictoryScreen()
     {
         yield return new WaitForSeconds(3f);
-        Time.timeScale = 0f;
         _victory.SetActive(true);
     }
     public IEnumerator DefeatScreen()
     {
         yield return new WaitForSeconds(3f);
-        Time.timeScale = 0f;
         _defeat.SetActive(true);
     }
 }
