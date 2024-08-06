@@ -8,7 +8,8 @@ public class ManagerPointsGame : MonoBehaviour
     int PuntosMaximos;
     int PuntosAcumulados = 0;
 
-    public int intentoMaximos = 5;  
+    public int intentoMaximos = 5;
+    int ErroresMaximos = 3;
     public int intentos = 0;
 
     public List<GameObject> Puntos = new List<GameObject>();
@@ -105,14 +106,14 @@ ParentFeed.SetActive(false);
         intentos++;
 
 
-        if (intentos == intentoMaximos)
+        if (intentos == intentoMaximos || intentos == ErroresMaximos)
         {
             MaxIntentos();
         }
     }
     public void MaxIntentos()
     {
-        if(PuntosAcumulados>=3)
+        if(PuntosAcumulados>=ErroresMaximos)
         {
             WinnerChampion.SetActive(true);
             WinnerChampion.transform.DOMove(PuntoAparicion.position, 4).SetEase(Ease.OutElastic);
@@ -120,7 +121,7 @@ ParentFeed.SetActive(false);
             //menuManager.VictoryScreen();
             StartCoroutine(VictoryScreen());
         }
-        if (PuntosAcumulados < 3)
+        if (PuntosAcumulados < ErroresMaximos)
         {
             LoserPerd.SetActive(true);
             LoserPerd.transform.DOMove(PuntoAparicion.position, 4).SetEase(Ease.OutElastic);
