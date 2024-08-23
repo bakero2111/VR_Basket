@@ -7,6 +7,7 @@ public class ManagerPointsGame : MonoBehaviour
 {
     int PuntosMaximos;
     int PuntosAcumulados = 0;
+    int ErroresAcumulados = 0;
 
     public int intentoMaximos = 5;
     int ErroresMaximos = 3;
@@ -38,6 +39,9 @@ public class ManagerPointsGame : MonoBehaviour
 
     [Header("FeedBack")]
     public GameObject ParentFeed;
+
+    [Header("Pelotas")]
+    public GameObject PelotasCestas;
     private void Awake()
     {
         menuManager = menuObject.GetComponent<MenuManeger>();
@@ -79,12 +83,12 @@ public class ManagerPointsGame : MonoBehaviour
         }
         if (PuntosAcumulados == 2)
         {
-            Bloque.SetActive(false);
+            //Bloque.SetActive(false);
             Tablero.enabled = true;
 
 
         }
-        if (intentos == intentoMaximos)
+        if (intentos == intentoMaximos || PuntosAcumulados ==ErroresMaximos )
         {
             MaxIntentos();
         }
@@ -102,18 +106,20 @@ ParentFeed.SetActive(false);
         Colorrender.EnableKeyword("_EMISSION");
         Vector4 colorHDR = new Vector4(RojoVino.r * IntensidadHDR, RojoVino.g * IntensidadHDR, RojoVino.b * IntensidadHDR, RojoVino.a);
         Colorrender.SetColor("_EmissionColor", colorHDR);
-
+        ErroresAcumulados++;
         intentos++;
 
 
-        if (intentos == intentoMaximos || intentos == ErroresMaximos)
+        if (intentos == intentoMaximos || ErroresAcumulados ==ErroresMaximos)
         {
             MaxIntentos();
         }
     }
     public void MaxIntentos()
     {
-        if(PuntosAcumulados>=ErroresMaximos)
+        Bloque.SetActive(false);
+        PelotasCestas.SetActive(false);
+        if(PuntosAcumulados>=ErroresMaximos) // ganaste
         {
             WinnerChampion.SetActive(true);
             WinnerChampion.transform.DOMove(PuntoAparicion.position, 4).SetEase(Ease.OutElastic);
@@ -121,7 +127,7 @@ ParentFeed.SetActive(false);
             //menuManager.VictoryScreen();
             StartCoroutine(VictoryScreen());
         }
-        if (PuntosAcumulados < ErroresMaximos)
+        if (PuntosAcumulados < ErroresMaximos) // perdiste
         {
             LoserPerd.SetActive(true);
             LoserPerd.transform.DOMove(PuntoAparicion.position, 4).SetEase(Ease.OutElastic);
