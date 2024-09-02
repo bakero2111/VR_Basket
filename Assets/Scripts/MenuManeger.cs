@@ -9,7 +9,8 @@ public class MenuManeger : MonoBehaviour
     public GameObject tutorialMenu;
     public GameObject victoryMenu;
     public GameObject defeatMenu;
-    
+    public List<GameObject> Prender;
+    public List<GameObject> Apagar;
     
 
     //carga la escena del juego
@@ -55,7 +56,7 @@ public class MenuManeger : MonoBehaviour
     public void Reload()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 
 
@@ -66,13 +67,21 @@ public class MenuManeger : MonoBehaviour
     
     public void Jugar()
     {
-
+        mainMenu.SetActive(false);
+        for (int i = 0; i < Prender.Count; i++)
+        {
+            Prender[i].SetActive(true);
+        }
+        for (int i = 0; i < Apagar.Count; i++)
+        {
+            Apagar[i].SetActive(false);
+        }
     }
     public void Salir()
     {
         Application.Quit();
     }
-
+    /*
     void OnCollisionEnter(Collision Presion)
     {
         if (Presion.gameObject.tag == "jugarB")
@@ -84,4 +93,5 @@ public class MenuManeger : MonoBehaviour
             Salir();
         }
     }
+    */
 }
