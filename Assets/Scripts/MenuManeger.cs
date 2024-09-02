@@ -9,6 +9,8 @@ public class MenuManeger : MonoBehaviour
     public GameObject tutorialMenu;
     public GameObject victoryMenu;
     public GameObject defeatMenu;
+    
+    
 
     //carga la escena del juego
     public void StartBotton()
@@ -55,5 +57,31 @@ public class MenuManeger : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene(1);
     }
+
+
+
+
     
+    ///////////////////////////////////////////-------------------
+    
+    public void Jugar()
+    {
+
+    }
+    public void Salir()
+    {
+        Application.Quit();
+    }
+
+    void OnCollisionEnter(Collision Presion)
+    {
+        if (Presion.gameObject.tag == "jugarB")
+        {
+            Jugar();
+        }
+        if (Presion.gameObject.tag == "salirB")
+        {
+            Salir();
+        }
+    }
 }
